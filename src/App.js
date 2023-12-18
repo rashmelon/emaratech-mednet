@@ -1,7 +1,7 @@
 import Header from "./components/UI/Header";
 import Filters from "./components/Filter/Filters";
 import ProvidersTable from "./components/Providers/ProvidersTable";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import supabaseConfig from "./config/Supabase";
 
 const supabase = supabaseConfig.supabase;
@@ -19,7 +19,7 @@ export default function App() {
         searchInput: null,
     })
 
-    const fetchData = async (page = null) => {
+    const fetchData = useCallback(async (page = null) => {
         page = page?? currentPage
         const countBuilder = supabase
             .from('provider')
@@ -57,11 +57,11 @@ export default function App() {
         const {data: providers} = await builder
 
         setProviders(providers)
-    }
+    }, [currentPage, searchData.city, searchData.providerType, searchData.region, searchData.searchInput, searchData.speciality])
 
     useEffect(() => {
         fetchData();
-    }, [searchData, currentPage]);
+    }, [searchData, currentPage, fetchData]);
 
     const submitHandler = async (city, region, providerType, speciality, searchInput) => {
         setSearchData({
