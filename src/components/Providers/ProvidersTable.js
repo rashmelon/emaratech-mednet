@@ -34,6 +34,7 @@ const ProvidersTable = (props) => {
     if (props.pagesCount > 0) {
         pages = (
             <a
+                href="#"
                 key="prev"
                 onClick={previousHandler}
                 className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white 
@@ -50,6 +51,7 @@ const ProvidersTable = (props) => {
             pages = [pages,
                 <li>
                     <a
+                        href="#"
                         key={i}
                         onClick={pageChangeHandler.bind(null, i + 1)}
                         className={i + 1 === props.currentPage
@@ -65,6 +67,7 @@ const ProvidersTable = (props) => {
         pages = [...pages,
             <li>
                 <a
+                    href="#"
                     key="next"
                     onClick={nextHandler}
                     className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
