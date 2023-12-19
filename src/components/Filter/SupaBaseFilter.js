@@ -27,7 +27,8 @@ const SupaBaseFilter = (props) => {
     const fetchItems = useCallback(async () => {
         const builder = supabase
             .from(props.databaseModel)
-            .select();
+            .select()
+            .order('name', { ascending: true });
 
         if (props.filters) {
             props.filters.forEach((filter) => builder.eq(filter.key, filter.value));

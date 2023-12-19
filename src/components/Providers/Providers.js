@@ -20,7 +20,8 @@ const Providers = (props) => {
 
         const builder = supabase
             .from('provider')
-            .select().range((currentPage - 1) * pageSize, currentPage * (pageSize) - 1);
+            .select().range((currentPage - 1) * pageSize, currentPage * (pageSize) - 1)
+            .order('name', { ascending: true });
 
         if (props.searchData.city) {
             builder.eq('city_id', props.searchData.city);
