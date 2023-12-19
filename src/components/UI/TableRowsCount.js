@@ -5,7 +5,7 @@ const TableRowsCount = (props) => {
     return (
         <div className="flex justify-end items-center mt-2">
             <div className="mr-2">
-                Number of rows per table
+                Displaying {Math.min(props.itemsCount, props.pageSize)} of {props.totalCount}
             </div>
             <select className="border border-gray-300 rounded px-2 py-1" onChange={onChange} value={props.pageSize}>
                 <option value={10}>10</option>

@@ -10,6 +10,7 @@ const Providers = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [isLoading, setIsLoading] = useState(false);
+    const [totalCount, setTotalCount] = useState(0)
     const previousCurrentPage = usePrevious(currentPage);
 
     const fetchData = useCallback(async () => {
@@ -46,6 +47,7 @@ const Providers = (props) => {
 
         const {data} = await countBuilder;
         const count = data[0].count;
+        setTotalCount(count)
 
         setPagesCount(Math.ceil(count / pageSize));
         const {data: providers} = await builder;
@@ -78,6 +80,7 @@ const Providers = (props) => {
             onPageChanged={pageChangedHandler}
             onPageSizeChange={onPageSizeChange}
             isLoading={isLoading}
+            totalCount={totalCount}
         />);
 }
 

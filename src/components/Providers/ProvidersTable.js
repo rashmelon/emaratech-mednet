@@ -60,7 +60,7 @@ const ProvidersTable = (props) => {
                     </tbody>
                 </table>
 
-                <TableRowsCount onPageSizeChange={props.onPageSizeChange} pageSize={props.pageSize}/>
+                <TableRowsCount onPageSizeChange={props.onPageSizeChange} pageSize={props.pageSize} totalCount={props.totalCount} itemsCount={providers.length}/>
 
                 <Pagination currentPage={props.currentPage} pagesCount={props.pagesCount}
                             onPageChanged={props.onPageChanged}/>
