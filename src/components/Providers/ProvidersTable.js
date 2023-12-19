@@ -1,7 +1,7 @@
 import Pagination from "../UI/Pagination";
 import TableRowsCount from "../UI/TableRowsCount";
 import Loader from "../UI/Loader";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ProviderListItem from "./ProviderListItem";
 
 const ProvidersTable = (props) => {
@@ -14,6 +14,10 @@ const ProvidersTable = (props) => {
             setOpenedIndex(index)
         }
     }
+
+    useEffect(() => {
+        setOpenedIndex(-1);
+    }, [props.providers]);
 
     const providers = props.providers.map((provider, index) => {
         return (
