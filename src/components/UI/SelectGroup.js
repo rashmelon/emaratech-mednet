@@ -11,6 +11,7 @@ const SelectGroup = (props) => {
                 isSearchable={true}
                 placeholder={props.placeholder}
                 isDisabled={props.disabled}
+                isClearable={true}
             />
         </InputGroup>
     )

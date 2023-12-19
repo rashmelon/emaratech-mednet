@@ -1,74 +1,16 @@
-import {useEffect, useState} from "react";
-import supabaseConfig from "../../config/Supabase";
-import SelectGroup from "../UI/SelectGroup";
+import {useState} from "react";
+import SupaBaseFilter from "./SupaBaseFilter";
 import InputGroup from "../UI/InputGroup";
 
-const supabase = supabaseConfig.supabase;
-
-const prepareForSelect = (items, labelKey = null, valueKey = null) => {
-    const returnItems = [];
-
-    for (const key in items) {
-        returnItems.push({
-            value: items[key][valueKey],
-            label: items[key][labelKey],
-        });
-    }
-
-    return returnItems;
-}
-
-const Filters = (props) => {
+const FiltersForm = (props) => {
     const [city, setCity] = useState(null);
     const [region, setRegion] = useState(null);
     const [providerType, setProviderType] = useState(null);
     const [speciality, setSpeciality] = useState(null);
-    const [searchInput, setSearchInput] = useState("")
-
-    const [cities, setCities] = useState([]);
-    const [regions, setRegions] = useState([]);
-    const [providerTypes, setProviderTypes] = useState([]);
-    const [specialities, setSpecialities] = useState([]);
-
-    const fetchCities = async () => {
-        const {data} = await supabase
-            .from('city')
-            .select()
-        setCities(prepareForSelect(data, 'name', 'id'));
-    }
-
-    const fetchRegions = async (cityId) => {
-        const {data} = await supabase
-            .from('region')
-            .select()
-            .eq('city_id', cityId)
-        setRegions(prepareForSelect(data, 'name', 'id'));
-    }
-
-    const fetchProviderTypes = async (cityId) => {
-        const {data} = await supabase
-            .from('provider_type')
-            .select()
-        setProviderTypes(prepareForSelect(data, 'name', 'id'));
-    }
-
-    const fetchSpecialities = async (cityId) => {
-        const {data} = await supabase
-            .from('speciality')
-            .select()
-        setSpecialities(prepareForSelect(data, 'name', 'id'));
-    }
-
-    useEffect(() => {
-        fetchCities()
-        fetchProviderTypes()
-        fetchSpecialities()
-    }, []);
+    const [searchInput, setSearchInput] = useState("");
 
     const cityChangeHandler = (selectedOption) => {
         setCity(selectedOption);
-        setRegion(null);
-        fetchRegions(selectedOption.value);
     }
 
     const regionChangeHandler = (selectedOption) => {
@@ -111,34 +53,38 @@ const Filters = (props) => {
         <div>
             <form onSubmit={searchHandler} onReset={resetHandler}>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
-                    <SelectGroup
+                    <SupaBaseFilter
                         value={city}
-                        changeHandler={cityChangeHandler}
-                        items={cities}
                         label="City"
                         placeholder="select city..."
+                        onItemSelected={cityChangeHandler}
+                        databaseModel="city"
                     />
-                    <SelectGroup
+                    <SupaBaseFilter
                         value={region}
-                        changeHandler={regionChangeHandler}
-                        items={regions}
                         label="Region"
                         placeholder="select region..."
-                        disabled={regions.length === 0}
+                        onItemSelected={regionChangeHandler}
+                        filters={city ? [{
+                            key: "city_id",
+                            value: city.value
+                        }] : null}
+                        databaseModel="region"
+                        disabled={city === null}
                     />
-                    <SelectGroup
+                    <SupaBaseFilter
                         value={providerType}
-                        changeHandler={providerTypeChangeHandler}
-                        items={providerTypes}
                         label="Provider Type"
                         placeholder="select type..."
+                        onItemSelected={providerTypeChangeHandler}
+                        databaseModel="provider_type"
                     />
-                    <SelectGroup
+                    <SupaBaseFilter
                         value={speciality}
-                        changeHandler={specialityChangeHandler}
-                        items={specialities}
                         label="Speciality"
                         placeholder="select speciality..."
+                        onItemSelected={specialityChangeHandler}
+                        databaseModel="speciality"
                     />
 
                     <InputGroup label="Search" className="md:col-span-2 xl:col-span-4">
@@ -166,4 +112,4 @@ const Filters = (props) => {
     )
 }
 
-export default Filters;
+export default FiltersForm;

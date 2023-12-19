@@ -1,4 +1,4 @@
-const SelectGroup = (props) => {
+const InputGroup = (props) => {
     return (
         <div className={`grid gap-1 ${props.className}`}>
             <label>{props.label}</label>
@@ -8,4 +8,4 @@ const SelectGroup = (props) => {
     )
 }
 
-export default SelectGroup;
+export default InputGroup;
