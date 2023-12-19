@@ -3,7 +3,7 @@ import {Fragment} from "react";
 const ProviderListItem = (props) => {
     const {provider, index, onRowClick, rowIsOpened} = props;
     return (
-        <Fragment key={provider.id}>
+        <Fragment>
             <tr onClick={onRowClick.bind(null, index)} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className={`md:hidden cursor-pointer ${rowIsOpened? 'rotate-180': ''}`}>
                     <div className="flex justify-center items-center">
