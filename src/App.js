@@ -23,16 +23,18 @@ export default function App() {
         })
     }
 
-    return (<div className="bg-gray-300 min-h-screen">
-        <Header/>
-        <main className="mt-5 flex flex-col items-center gap-5">
-            <div className="bg-white dark:bg-gray-700 dark:text-gray-400 md:w-3/4 w-11/12 p-5 rounded-md">
-                <FiltersForm onSubmit={submitHandler}/>
-            </div>
-            <div className=" md:w-3/4 w-11/12">
-                <Providers searchData={searchData}/>
-            </div>
-        </main>
-        <Footer />
+    return (<div className="bg-gray-300 min-h-screen -mb-25 flex flex-col">
+        <div className="flex-1">
+            <Header/>
+            <main className="mt-5 flex flex-col items-center gap-5">
+                <div className="bg-white dark:bg-gray-700 dark:text-gray-400 md:w-3/4 w-11/12 p-5 rounded-md">
+                    <FiltersForm onSubmit={submitHandler}/>
+                </div>
+                <div className=" md:w-3/4 w-11/12">
+                    <Providers searchData={searchData}/>
+                </div>
+            </main>
+        </div>
+        <Footer className="mb-25 shrink-0"/>
     </div>)
 }
